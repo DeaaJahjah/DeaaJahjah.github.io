@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,11 +16,13 @@
             overflow: hidden;
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
         }
+
         canvas {
             background: linear-gradient(to bottom, #00001a, #0c1445);
             display: block;
             touch-action: none;
         }
+
         .touch-controls button {
             width: 60px;
             height: 60px;
@@ -33,6 +36,7 @@
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
+
         .developer-card {
             position: absolute;
             bottom: 20px;
@@ -46,10 +50,12 @@
             z-index: 20;
             transition: all 0.3s ease;
         }
+
         .developer-card:hover {
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
+
         .close-btn {
             position: absolute;
             top: -10px;
@@ -69,10 +75,12 @@
             transition: all 0.2s ease;
             z-index: 21;
         }
+
         .close-btn:hover {
             transform: scale(1.1);
             background: #e63946;
         }
+
         .developer-header {
             display: flex;
             align-items: center;
@@ -80,6 +88,7 @@
             padding-bottom: 10px;
             border-bottom: 2px dashed #fff;
         }
+
         .developer-avatar {
             width: 80px;
             height: 80px;
@@ -93,33 +102,39 @@
             overflow: hidden;
             animation: float 3s ease-in-out infinite;
         }
+
         .developer-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .developer-name {
             flex-grow: 1;
             padding-right: 15px;
         }
+
         .developer-name h3 {
             font-size: 1.5rem;
             font-weight: 700;
             margin: 0;
             color: #5a189a;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
+
         .developer-name p {
             margin: 5px 0 0;
             color: #6d6875;
             font-size: 0.9rem;
         }
+
         .developer-info {
             background: rgba(255, 255, 255, 0.7);
             border-radius: 15px;
             padding: 12px;
             margin-bottom: 10px;
         }
+
         .info-item {
             display: flex;
             align-items: center;
@@ -127,16 +142,19 @@
             color: #5a189a;
             font-weight: 600;
         }
+
         .info-item i {
             width: 25px;
             color: #ff6b6b;
             font-size: 1.2rem;
         }
+
         .stars {
             display: flex;
             justify-content: center;
             margin-top: 10px;
         }
+
         .stars i {
             color: #ffd166;
             font-size: 1.5rem;
@@ -144,32 +162,63 @@
             text-shadow: 0 0 5px rgba(255, 209, 102, 0.8);
             animation: pulse 2s infinite;
         }
-        .stars i:nth-child(2) { animation-delay: 0.2s; }
-        .stars i:nth-child(3) { animation-delay: 0.4s; }
-        .stars i:nth-child(4) { animation-delay: 0.6s; }
-        .stars i:nth-child(5) { animation-delay: 0.8s; }
-        
+
+        .stars i:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .stars i:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .stars i:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .stars i:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
+
         .cartoon-title {
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             font-size: 2.5rem;
             color: #fff;
-            text-shadow: 
+            text-shadow:
                 3px 3px 0 #ff6b6b,
                 6px 6px 0 #5a189a;
             margin-bottom: 1rem;
             letter-spacing: -1px;
         }
+
         .cartoon-button {
             background: linear-gradient(145deg, #ff6b6b, #ff8e8e);
             border: none;
@@ -184,14 +233,17 @@
             position: relative;
             overflow: hidden;
         }
+
         .cartoon-button:hover {
             transform: translateY(4px);
             box-shadow: 0 4px 0 #d90429;
         }
+
         .cartoon-button:active {
             transform: translateY(8px);
             box-shadow: 0 0 0 #d90429;
         }
+
         .cartoon-button:before {
             content: "";
             position: absolute;
@@ -203,20 +255,38 @@
             transform: rotate(45deg) translateY(40px);
             transition: all 0.3s;
         }
+
         .cartoon-button:hover:before {
             transform: rotate(45deg) translateY(-40px);
         }
+
         .rocket-icon {
             display: inline-block;
             animation: fly 5s infinite linear;
         }
+
         @keyframes fly {
-            0% { transform: translateX(0) rotate(0); }
-            25% { transform: translateX(10px) rotate(5deg); }
-            50% { transform: translateX(0) rotate(0); }
-            75% { transform: translateX(-10px) rotate(-5deg); }
-            100% { transform: translateX(0) rotate(0); }
+            0% {
+                transform: translateX(0) rotate(0);
+            }
+
+            25% {
+                transform: translateX(10px) rotate(5deg);
+            }
+
+            50% {
+                transform: translateX(0) rotate(0);
+            }
+
+            75% {
+                transform: translateX(-10px) rotate(-5deg);
+            }
+
+            100% {
+                transform: translateX(0) rotate(0);
+            }
         }
+
         .bubble {
             position: absolute;
             background: rgba(255, 255, 255, 0.9);
@@ -229,6 +299,7 @@
             animation: bubbleFloat 8s infinite;
             border: 2px solid #ff6b6b;
         }
+
         .bubble:after {
             content: "";
             position: absolute;
@@ -239,80 +310,111 @@
             border-bottom: 2px solid #ff6b6b;
             transform: rotate(45deg);
         }
+
         .bubble.top-right {
             top: 100px;
             right: 50px;
         }
+
         .bubble.top-right:after {
             bottom: -10px;
             right: 30px;
         }
+
         .bubble.bottom-left {
             bottom: 150px;
             left: 50px;
         }
+
         .bubble.bottom-left:after {
             top: -10px;
             left: 30px;
             transform: rotate(225deg);
         }
+
         @keyframes bubbleFloat {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            25% { transform: translateY(-10px) rotate(2deg); }
-            50% { transform: translateY(0) rotate(0); }
-            75% { transform: translateY(10px) rotate(-2deg); }
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            25% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+
+            50% {
+                transform: translateY(0) rotate(0);
+            }
+
+            75% {
+                transform: translateY(10px) rotate(-2deg);
+            }
         }
     </style>
 </head>
+
 <body class="bg-gray-900 text-white flex items-center justify-center h-screen m-0">
 
-    <div id="gameContainer" class="relative w-full h-full max-w-2xl max-h-[90vh] aspect-[9/16] shadow-2xl rounded-lg overflow-hidden">
+    <div id="gameContainer"
+        class="relative w-full h-full max-w-2xl max-h-[90vh] aspect-[9/16] shadow-2xl rounded-lg overflow-hidden">
         <canvas id="gameCanvas"></canvas>
-        
+
         <!-- شاشة البداية -->
-        <div id="startScreen" class="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center text-center p-4 z-10">
+        <div id="startScreen"
+            class="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center text-center p-4 z-10">
             <h1 class="cartoon-title">رحلة إلى القمر</h1>
-            <p class="text-lg md:text-xl mb-6 bg-blue-900 bg-opacity-50 py-2 px-4 rounded-lg">مهمتك هي قيادة الصاروخ والهبوط بأمان على القمر. <br> اجمع <b class="text-pink-400">20 قلبًا ❤️</b> على الأقل للفوز!</p>
-            <p class="text-md md:text-lg mb-8 bg-purple-900 bg-opacity-50 py-2 px-4 rounded-lg"><b>التحكم:</b> استخدم <b>مفاتيح الأسهم</b> أو <b>أزرار اللمس</b> للحركة.</p>
+            <p class="text-lg md:text-xl mb-6 bg-blue-900 bg-opacity-50 py-2 px-4 rounded-lg">مهمتك هي قيادة الصاروخ
+                والهبوط بأمان على القمر. <br> اجمع <b class="text-pink-400">20 قلبًا ❤️</b> على الأقل للفوز!</p>
+            <p class="text-md md:text-lg mb-8 bg-purple-900 bg-opacity-50 py-2 px-4 rounded-lg"><b>التحكم:</b> استخدم
+                <b>مفاتيح الأسهم</b> أو <b>أزرار اللمس</b> للحركة.</p>
             <button id="startButton" class="cartoon-button">
                 ابدأ اللعبة <i class="fas fa-rocket rocket-icon ml-2"></i>
             </button>
-            
+
             <!-- فقاعات كرتونية -->
             <div class="bubble top-right">صممت هذه اللعبة بكل حب ❤️</div>
             <div class="bubble bottom-left">هل أنت مستعد للمغامرة؟ 🌙</div>
         </div>
 
         <!-- شاشة النهاية (خسارة) -->
-        <div id="gameOverScreen" class="absolute inset-0 bg-black bg-opacity-80 flex-col items-center justify-center text-center p-4 z-10 hidden">
+        <div id="gameOverScreen"
+            class="absolute inset-0 bg-black bg-opacity-80 flex-col items-center justify-center text-center p-4 z-10 hidden">
             <h2 class="text-5xl font-bold text-red-500 mb-4">لقد خسرت!</h2>
             <p class="text-2xl mb-8">لقد اصطدمت بقنبلة.</p>
             <button id="restartButtonLose" class="cartoon-button">
                 حاول مجدداً
             </button>
         </div>
-        
+
         <!-- شاشة النهاية (فوز) -->
-        <div id="winScreen" class="absolute inset-0 bg-black bg-opacity-80 flex-col items-center justify-center text-center p-4 z-10 hidden">
+        <div id="winScreen"
+            class="absolute inset-0 bg-black bg-opacity-80 flex-col items-center justify-center text-center p-4 z-10 hidden">
             <h2 class="text-5xl font-bold text-green-400 mb-4">هبوط ناجح!</h2>
-            <p class="text-2xl mb-8">لقد هبطنا بنجاح وحصلت على <span id="finalScore" class="text-yellow-300">0</span> قلبًا ❤️</p>
+            <p class="text-2xl mb-8">لقد هبطنا بنجاح وحصلت على <span id="finalScore" class="text-yellow-300">0</span>
+                قلبًا ❤️</p>
             <button id="restartButtonWin" class="cartoon-button">
                 العب مرة أخرى
             </button>
         </div>
 
         <!-- معلومات اللعبة (النقاط) -->
-        <div id="gameInfo" class="absolute top-4 right-4 text-2xl font-bold hidden bg-black bg-opacity-50 px-4 py-2 rounded-lg">
+        <div id="gameInfo"
+            class="absolute top-4 right-4 text-2xl font-bold hidden bg-black bg-opacity-50 px-4 py-2 rounded-lg">
             <span class="text-pink-400">❤️</span> <span id="score">0</span>/20
         </div>
-        
+
         <!-- شريط تقدم -->
-        <div id="progressContainer" class="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-80 h-4 bg-gray-800 bg-opacity-50 rounded-full overflow-hidden hidden z-20">
-            <div id="progressBar" class="h-full bg-gradient-to-r from-pink-500 to-yellow-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+        <div id="progressContainer"
+            class="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-80 h-4 bg-gray-800 bg-opacity-50 rounded-full overflow-hidden hidden z-20">
+            <div id="progressBar"
+                class="h-full bg-gradient-to-r from-pink-500 to-yellow-500 rounded-full transition-all duration-300"
+                style="width: 0%"></div>
         </div>
 
         <!-- أزرار التحكم باللمس -->
-        <div id="touchControls" class="absolute bottom-5 left-1/2 -translate-x-1/2 w-48 grid grid-cols-3 gap-2 z-20 hidden">
+        <div id="touchControls"
+            class="absolute bottom-5 left-1/2 -translate-x-1/2 w-48 grid grid-cols-3 gap-2 z-20 hidden">
             <div></div>
             <button id="touchUp" class="bg-blue-500">▲</button>
             <div></div>
@@ -320,7 +422,7 @@
             <div></div>
             <button id="touchRight" class="bg-blue-500">▶</button>
         </div>
-        
+
         <!-- بطاقة المطور -->
         <div class="developer-card" id="developerCard">
             <div class="close-btn" id="closeBtn">✕</div>
@@ -333,7 +435,7 @@
                     <p>المطور الصغير</p>
                 </div>
             </div>
-            
+
             <div class="developer-info">
                 <div class="info-item">
                     <i class="fas fa-code"></i>
@@ -352,7 +454,7 @@
                     <span>مصمم هذه اللعبة</span>
                 </div>
             </div>
-            
+
             <div class="stars">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -379,7 +481,7 @@
         const progressContainer = document.getElementById('progressContainer');
         const developerCard = document.getElementById('developerCard');
         const closeBtn = document.getElementById('closeBtn');
-        
+
         const startButton = document.getElementById('startButton');
         const restartButtonLose = document.getElementById('restartButtonLose');
         const restartButtonWin = document.getElementById('restartButtonWin');
@@ -395,11 +497,11 @@
         let particles = [];
 
         // --- وظائف التحكم في بطاقة المطور ---
-        closeBtn.addEventListener('click', function() {
+        closeBtn.addEventListener('click', function () {
             developerCard.style.opacity = '0';
             developerCard.style.transform = 'translateY(20px)';
-            
-            setTimeout(function() {
+
+            setTimeout(function () {
                 developerCard.style.display = 'none';
             }, 300);
         });
@@ -439,32 +541,32 @@
             ctx.fillStyle = '#D9534F';
             ctx.fillRect(-rocket.width / 2 - 5, rocket.height / 4, 5, rocket.height / 3);
             ctx.fillRect(rocket.width / 2, rocket.height / 4, 5, rocket.height / 3);
-            
+
             // لهب المحرك
             if (keys.ArrowUp && gameState === 'playing') {
                 const flameHeight = 15 + Math.random() * 10;
                 const flameWidth = rocket.width / 2;
-                
+
                 ctx.fillStyle = '#FF4500';
                 ctx.beginPath();
-                ctx.moveTo(-flameWidth/2, rocket.height / 2);
-                ctx.lineTo(flameWidth/2, rocket.height / 2);
+                ctx.moveTo(-flameWidth / 2, rocket.height / 2);
+                ctx.lineTo(flameWidth / 2, rocket.height / 2);
                 ctx.lineTo(0, rocket.height / 2 + flameHeight);
                 ctx.closePath();
                 ctx.fill();
-                
+
                 // لهب داخلي
                 ctx.fillStyle = '#FFD700';
                 ctx.beginPath();
-                ctx.moveTo(-flameWidth/4, rocket.height / 2);
-                ctx.lineTo(flameWidth/4, rocket.height / 2);
+                ctx.moveTo(-flameWidth / 4, rocket.height / 2);
+                ctx.lineTo(flameWidth / 4, rocket.height / 2);
                 ctx.lineTo(0, rocket.height / 2 + flameHeight * 0.7);
                 ctx.closePath();
                 ctx.fill();
             }
             ctx.restore();
         }
-        
+
         function drawAstronaut() {
             if (!astronaut.inRocket) {
                 // الجسم
@@ -488,13 +590,13 @@
             ctx.beginPath();
             ctx.arc(moon.x, moon.y + 10, moon.radius + 5, 0, 2 * Math.PI);
             ctx.fill();
-            
+
             // جسم القمر
             ctx.fillStyle = '#C0C0C0';
             ctx.beginPath();
             ctx.arc(moon.x, moon.y, moon.radius, 0, 2 * Math.PI);
             ctx.fill();
-            
+
             // فوهات القمر
             ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
             ctx.beginPath();
@@ -515,19 +617,19 @@
                 ctx.beginPath();
                 ctx.arc(bomb.x, bomb.y + 3, bomb.radius, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 // جسم القنبلة
                 ctx.fillStyle = '#333';
                 ctx.beginPath();
                 ctx.arc(bomb.x, bomb.y, bomb.radius, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 // فتيل القنبلة
                 ctx.fillStyle = '#D9534F';
                 ctx.beginPath();
                 ctx.arc(bomb.x, bomb.y, bomb.radius * 0.3, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 // توهج أحمر
                 ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
                 ctx.beginPath();
@@ -542,28 +644,28 @@
                 ctx.font = `${heart.radius * 2}px sans-serif`;
                 ctx.fillStyle = '#FF4081';
                 ctx.fillText('❤️', heart.x - heart.radius, heart.y + heart.radius);
-                
+
                 // توهج للقلوب
                 ctx.fillStyle = 'rgba(255, 64, 129, 0.3)';
                 ctx.beginPath();
                 ctx.arc(heart.x, heart.y, heart.radius * 1.5, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 ctx.restore();
             });
         }
-        
+
         function drawStars() {
             ctx.fillStyle = 'white';
             stars.forEach(star => {
                 ctx.globalAlpha = star.opacity;
                 ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size/2, 0, Math.PI * 2);
+                ctx.arc(star.x, star.y, star.size / 2, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.globalAlpha = 1.0;
             });
         }
-        
+
         function drawPlanets() {
             planets.forEach(planet => {
                 // ظل الكوكب
@@ -571,13 +673,13 @@
                 ctx.beginPath();
                 ctx.arc(planet.x, planet.y + 5, planet.radius, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 // جسم الكوكب
                 ctx.fillStyle = planet.color;
                 ctx.beginPath();
                 ctx.arc(planet.x, planet.y, planet.radius, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 // حلقات للكواكب
                 if (planet.hasRings) {
                     ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
@@ -588,20 +690,20 @@
                 }
             });
         }
-        
+
         function drawParticles() {
             particles.forEach((particle, index) => {
                 ctx.fillStyle = particle.color;
                 ctx.beginPath();
                 ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
                 ctx.fill();
-                
+
                 // تحديث الجسيمات
                 particle.x += particle.vx;
                 particle.y += particle.vy;
                 particle.size -= 0.1;
                 particle.alpha -= 0.02;
-                
+
                 if (particle.size <= 0 || particle.alpha <= 0) {
                     particles.splice(index, 1);
                 }
@@ -638,7 +740,7 @@
                     hearts.splice(index, 1);
                 }
             });
-            
+
             // تحديث النجوم والكواكب
             stars.forEach(star => {
                 star.y += 0.2;
@@ -657,7 +759,7 @@
 
             // التحقق من الاصطدام
             checkCollisions();
-            
+
             // التحقق من شرط الفوز
             if (rocket.y <= moon.y + moon.radius && score >= 20) {
                 gameState = 'landing';
@@ -674,9 +776,9 @@
             // إظهار جسيمات الهبوط
             if (Math.random() < 0.3) {
                 createParticles(
-                    rocket.x + rocket.width/2, 
-                    rocket.y + rocket.height, 
-                    5, 
+                    rocket.x + rocket.width / 2,
+                    rocket.y + rocket.height,
+                    5,
                     ['#FFD700', '#FFA500', '#FF4500']
                 );
             }
@@ -686,7 +788,7 @@
                 winGame();
             }
         }
-        
+
         function checkCollisions() {
             // الاصطدام بالقنابل
             bombs.forEach((bomb, index) => {
@@ -698,8 +800,8 @@
                 ) {
                     // إظهار انفجار
                     createParticles(
-                        bomb.x, bomb.y, 
-                        30, 
+                        bomb.x, bomb.y,
+                        30,
                         ['#FF0000', '#FF4500', '#FFA500']
                     );
                     endGame();
@@ -717,17 +819,17 @@
                     hearts.splice(index, 1);
                     score++;
                     scoreEl.innerText = score;
-                    
+
                     // تحديث شريط التقدم
                     progressBar.style.width = `${Math.min(100, (score / 20) * 100)}%`;
-                    
+
                     // إظهار جسيمات عند جمع القلب
                     createParticles(
-                        heart.x, heart.y, 
-                        15, 
+                        heart.x, heart.y,
+                        15,
                         ['#FF4081', '#FF6D00', '#FFD700']
                     );
-                    
+
                     // تغذية راجعة صوتية
                     if (score >= 20) {
                         // إظهار رسالة عند اكتمال النقاط
@@ -736,7 +838,7 @@
                 }
             });
         }
-        
+
         function createParticles(x, y, count, colors) {
             for (let i = 0; i < count; i++) {
                 particles.push({
@@ -750,14 +852,14 @@
                 });
             }
         }
-        
+
         function showMessage(text) {
             const message = document.createElement('div');
             message.textContent = text;
             message.className = 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white text-xl px-6 py-3 rounded-lg z-30 animate-pulse';
             message.id = 'tempMessage';
             gameContainer.appendChild(message);
-            
+
             setTimeout(() => {
                 if (document.getElementById('tempMessage')) {
                     gameContainer.removeChild(message);
@@ -786,7 +888,7 @@
                 });
             }
         }
-        
+
         function createScenery() {
             // إنشاء النجوم
             for (let i = 0; i < 150; i++) {
@@ -813,7 +915,7 @@
         // --- حلقة اللعبة الرئيسية ---
         function gameLoop() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             // الرسم دائمًا
             drawStars();
             drawPlanets();
@@ -821,7 +923,7 @@
             drawBombs();
             drawHearts();
             drawParticles();
-            
+
             if (gameState === 'start') {
                 drawAstronaut();
                 drawRocket();
@@ -849,7 +951,7 @@
             stars = [];
             planets = [];
             particles = [];
-            
+
             rocket = {
                 width: 30,
                 height: 50,
@@ -857,7 +959,7 @@
                 y: canvas.height - 70,
                 speed: 4
             };
-            
+
             astronaut = {
                 width: 20,
                 height: 30,
@@ -871,10 +973,10 @@
                 y: 60,
                 radius: 40
             };
-            
+
             createScenery();
         }
-        
+
         function startGame() {
             init();
             gameState = 'playing';
@@ -897,7 +999,7 @@
             progressContainer.style.display = 'none';
             touchControls.style.display = 'none';
         }
-        
+
         function winGame() {
             gameState = 'win';
             winScreen.style.display = 'flex';
@@ -931,8 +1033,8 @@
             button.addEventListener('mouseup', (e) => { e.preventDefault(); keys[key] = !isPressed; });
         }
         handleTouch(touchUp, 'ArrowUp', true);
-        handleTouch(touchLeft, 'ArrowLeft', true);
-        handleTouch(touchRight, 'ArrowRight', true);
+        handleTouch(touchRight, 'ArrowLeft', true);
+        handleTouch(touchLeft, 'ArrowRight', true);
 
         window.addEventListener('load', () => {
             init();
@@ -946,4 +1048,5 @@
 
     </script>
 </body>
+
 </html>
