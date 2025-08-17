@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رحلة الصاروخ إلى القمر</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+        }
+        canvas {
+            background: linear-gradient(to bottom, #00001a, #0c1445);
+            display: block;
+            touch-action: none;
+        }
+        .touch-controls button {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        .developer-card {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(145deg, #ff9a9e, #fad0c4);
+            border-radius: 20px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 3px solid #fff;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+        .developer-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        .close-btn {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 30px;
+            height: 30px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            z-index: 21;
+        }
+        .close-btn:hover {
+            transform: scale(1.1);
+            background: #e63946;
+        }
+        .developer-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #fff;
+        }
+        .developer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: float 3s ease-in-out infinite;
+        }
+        .developer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .developer-name {
+            flex-grow: 1;
+            padding-right: 15px;
+        }
+        .developer-name h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            color: #5a189a;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        .developer-name p {
+            margin: 5px 0 0;
+            color: #6d6875;
+            font-size: 0.9rem;
+        }
+        .developer-info {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #5a189a;
+            font-weight: 600;
+        }
+        .info-item i {
+            width: 25px;
+            color: #ff6b6b;
+            font-size: 1.2rem;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .stars i {
+            color: #ffd166;
+            font-size: 1.5rem;
+            margin: 0 2px;
+            text-shadow: 0 0 5px rgba(255, 209, 102, 0.8);
+            animation: pulse 2s infinite;
+        }
+        .stars i:nth-child(2) { animation-delay: 0.2s; }
+        .stars i:nth-child(3) { animation-delay: 0.4s; }
+        .stars i:nth-child(4) { animation-delay: 0.6s; }
+        .stars i:nth-child(5) { animation-delay: 0.8s; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .cartoon-title {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 
+                3px 3px 0 #ff6b6b,
+                6px 6px 0 #5a189a;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+        .cartoon-button {
+            background: linear-gradient(145deg, #ff6b6b, #ff8e8e);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #d90429;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .cartoon-button:hover {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #d90429;
+        }
+        .cartoon-button:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 #d90429;
+        }
+        .cartoon-button:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg) translateY(40px);
+            transition: all 0.3s;
+        }
+        .cartoon-button:hover:before {
+            transform: rotate(45deg) translateY(-40px);
+        }
+        .rocket-icon {
+            display: inline-block;
+            animation: fly 5s infinite linear;
+        }
+        @keyframes fly {
+            0% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(10px) rotate(5deg); }
+            50% { transform: translateX(0) rotate(0); }
+            75% { transform: translateX(-10px) rotate(-5deg); }
+            100% { transform: translateX(0) rotate(0); }
+        }
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 10px 15px;
+            color: #5a189a;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 30;
+            animation: bubbleFloat 8s infinite;
+            border: 2px solid #ff6b6b;
+        }
+        .bubble:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-right: 2px solid #ff6b6b;
+            border-bottom: 2px solid #ff6b6b;
+            transform: rotate(45deg);
+        }
+        .bubble.top-right {
+            top: 100px;
+            right: 50px;
+        }
+        .bubble.top-right:after {
+            bottom: -10px;
+            right: 30px;
+        }
+        .bubble.bottom-left {
+            bottom: 150px;
+            left: 50px;
+        }
+        .bubble.bottom-left:after {
+            top: -10px;
+            left: 30px;
+            transform: rotate(225deg);
+        }
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            25% { transform: translateY(-10px) rotate(2deg); }
+            50% { transform: translateY(0) rotate(0); }
+            75% { transform: translateY(10px) rotate(-2deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen m-0">
+
+    <div id="gameContainer" class="relative w-full h-full max-w-2xl max-h-[90vh] aspect-[9/16] shadow-2xl rounded-lg overflow-hidden">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- شاشة البداية -->
+        <div id="startScreen" class="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center text-center p-4 z-10">
+            <h1 class="cartoon-title">رحلة إلى القمر</h1>
+            <p class="text-lg md:text-xl mb-6 bg-blue-900 bg-opacity-50 py-2 px-4 rounded-lg">مهمتك هي قيادة الصاروخ والهبوط بأمان على القمر. <br> اجمع <b class="text-pink-400">20 قلبًا ❤️</b> على الأقل للفوز!</p>
+            <p class="text-md md:text-lg mb-8 bg-purple-900 bg-opacity-50 py-2 px-4 rounded-lg"><b>التحكم:</b> استخدم <b>مفاتيح الأسهم</b> أو <b>أزرار اللمس</b> للحركة.</p>
+            <button id="startButton" class="cartoon-button">
+                ابدأ اللعبة <i class="fas fa-rocket rocket-icon ml-2"></i>
+            </button>
+            
+            <!-- فقاعات كرتونية -->
+            <div class="bubble top-right">صممت هذه اللعبة بكل حب ❤️</div>
+            <div class="bubble bottom-left">هل أنت مستعد للمغامرة؟ 🌙</div>
+        </div>
+
+        <!-- شاشة النهاية (خسارة) -->
+        <div id="gameOverScreen" class="absolute inset-0 bg-black bg-opacity-80 flex-col items-center justify-center text-center p-4 z-10 hidden">
+            <h2 class="text-5xl font-bold text-red-500 mb-4">لقد خسرت!</h2>
+            <p class="text-2xl mb-8">لقد اصطدمت بقنبلة.</p>
+            <button id="restartButtonLose" class="cartoon-button">
+                حاول مجدداً
+            </button>
+        </div>
+        
+        <!-- شاشة النهاية (فوز) -->
+        <div id="winScreen" class="absolute inset-0 bg-black bg-opacity-80 flex-col items-center justify-center text-center p-4 z-10 hidden">
+            <h2 class="text-5xl font-bold text-green-400 mb-4">هبوط ناجح!</h2>
+            <p class="text-2xl mb-8">لقد هبطنا بنجاح وحصلت على <span id="finalScore" class="text-yellow-300">0</span> قلبًا ❤️</p>
+            <button id="restartButtonWin" class="cartoon-button">
+                العب مرة أخرى
+            </button>
+        </div>
+
+        <!-- معلومات اللعبة (النقاط) -->
+        <div id="gameInfo" class="absolute top-4 right-4 text-2xl font-bold hidden bg-black bg-opacity-50 px-4 py-2 rounded-lg">
+            <span class="text-pink-400">❤️</span> <span id="score">0</span>/20
+        </div>
+        
+        <!-- شريط تقدم -->
+        <div id="progressContainer" class="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-80 h-4 bg-gray-800 bg-opacity-50 rounded-full overflow-hidden hidden z-20">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-pink-500 to-yellow-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <!-- أزرار التحكم باللمس -->
+        <div id="touchControls" class="absolute bottom-5 left-1/2 -translate-x-1/2 w-48 grid grid-cols-3 gap-2 z-20 hidden">
+            <div></div>
+            <button id="touchUp" class="bg-blue-500">▲</button>
+            <div></div>
+            <button id="touchLeft" class="bg-blue-500">◀</button>
+            <div></div>
+            <button id="touchRight" class="bg-blue-500">▶</button>
+        </div>
+        
+        <!-- بطاقة المطور -->
+        <div class="developer-card" id="developerCard">
+            <div class="close-btn" id="closeBtn">✕</div>
+            <div class="developer-header">
+                <div class="developer-avatar">
+                    <img src="image.jpg" alt="وسيم محمد البيطار">
+                </div>
+                <div class="developer-name">
+                    <h3>وسيم محمد البيطار</h3>
+                    <p>المطور الصغير</p>
+                </div>
+            </div>
+            
+            <div class="developer-info">
+                <div class="info-item">
+                    <i class="fas fa-code"></i>
+                    <span>مطور ألعاب مبتدئ</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-heart"></i>
+                    <span>عمره: 10 سنوات</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-rocket"></i>
+                    <span>يبرمج منذ 3 سنوات</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-gamepad"></i>
+                    <span>مصمم هذه اللعبة</span>
+                </div>
+            </div>
+            
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- إعدادات اللعبة الأساسية ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gameContainer = document.getElementById('gameContainer');
+
+        const startScreen = document.getElementById('startScreen');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const winScreen = document.getElementById('winScreen');
+        const gameInfo = document.getElementById('gameInfo');
+        const scoreEl = document.getElementById('score');
+        const finalScoreEl = document.getElementById('finalScore');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const developerCard = document.getElementById('developerCard');
+        const closeBtn = document.getElementById('closeBtn');
+        
+        const startButton = document.getElementById('startButton');
+        const restartButtonLose = document.getElementById('restartButtonLose');
+        const restartButtonWin = document.getElementById('restartButtonWin');
+
+        const touchControls = document.getElementById('touchControls');
+        const touchUp = document.getElementById('touchUp');
+        const touchLeft = document.getElementById('touchLeft');
+        const touchRight = document.getElementById('touchRight');
+
+        let gameLoopId;
+        let gameState = 'start'; // 'start', 'playing', 'landing', 'gameOver', 'win'
+        let score = 0;
+        let particles = [];
+
+        // --- وظائف التحكم في بطاقة المطور ---
+        closeBtn.addEventListener('click', function() {
+            developerCard.style.opacity = '0';
+            developerCard.style.transform = 'translateY(20px)';
+            
+            setTimeout(function() {
+                developerCard.style.display = 'none';
+            }, 300);
+        });
+
+        // --- إعدادات عناصر اللعبة ---
+        let rocket, moon, astronaut;
+        let bombs = [];
+        let hearts = [];
+        let stars = [];
+        let planets = [];
+
+        const keys = {
+            ArrowUp: false,
+            ArrowLeft: false,
+            ArrowRight: false
+        };
+
+        // --- وظائف الرسم ---
+        function drawRocket() {
+            ctx.save();
+            ctx.translate(rocket.x + rocket.width / 2, rocket.y + rocket.height / 2);
+            ctx.fillStyle = '#E0E0E0';
+            ctx.beginPath();
+            ctx.moveTo(0, -rocket.height / 2);
+            ctx.lineTo(rocket.width / 2, rocket.height / 2);
+            ctx.lineTo(-rocket.width / 2, rocket.height / 2);
+            ctx.closePath();
+            ctx.fill();
+
+            // النوافذ
+            ctx.fillStyle = '#87CEEB';
+            ctx.beginPath();
+            ctx.arc(0, 0, rocket.width / 4, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // الأجنحة
+            ctx.fillStyle = '#D9534F';
+            ctx.fillRect(-rocket.width / 2 - 5, rocket.height / 4, 5, rocket.height / 3);
+            ctx.fillRect(rocket.width / 2, rocket.height / 4, 5, rocket.height / 3);
+            
+            // لهب المحرك
+            if (keys.ArrowUp && gameState === 'playing') {
+                const flameHeight = 15 + Math.random() * 10;
+                const flameWidth = rocket.width / 2;
+                
+                ctx.fillStyle = '#FF4500';
+                ctx.beginPath();
+                ctx.moveTo(-flameWidth/2, rocket.height / 2);
+                ctx.lineTo(flameWidth/2, rocket.height / 2);
+                ctx.lineTo(0, rocket.height / 2 + flameHeight);
+                ctx.closePath();
+                ctx.fill();
+                
+                // لهب داخلي
+                ctx.fillStyle = '#FFD700';
+                ctx.beginPath();
+                ctx.moveTo(-flameWidth/4, rocket.height / 2);
+                ctx.lineTo(flameWidth/4, rocket.height / 2);
+                ctx.lineTo(0, rocket.height / 2 + flameHeight * 0.7);
+                ctx.closePath();
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+        
+        function drawAstronaut() {
+            if (!astronaut.inRocket) {
+                // الجسم
+                ctx.fillStyle = 'white';
+                ctx.fillRect(astronaut.x, astronaut.y, astronaut.width, astronaut.height);
+                // الخوذة
+                ctx.beginPath();
+                ctx.arc(astronaut.x + astronaut.width / 2, astronaut.y, astronaut.width / 1.8, 0, Math.PI * 2);
+                ctx.fill();
+                // زجاج الخوذة
+                ctx.fillStyle = 'rgba(173, 216, 230, 0.7)';
+                ctx.beginPath();
+                ctx.arc(astronaut.x + astronaut.width / 2, astronaut.y, astronaut.width / 2.2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawMoon() {
+            // ظل القمر
+            ctx.fillStyle = 'rgba(192, 192, 192, 0.3)';
+            ctx.beginPath();
+            ctx.arc(moon.x, moon.y + 10, moon.radius + 5, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // جسم القمر
+            ctx.fillStyle = '#C0C0C0';
+            ctx.beginPath();
+            ctx.arc(moon.x, moon.y, moon.radius, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // فوهات القمر
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.beginPath();
+            ctx.arc(moon.x - 20, moon.y - 10, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(moon.x + 15, moon.y + 15, 12, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(moon.x + 25, moon.y - 20, 5, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawBombs() {
+            bombs.forEach(bomb => {
+                // ظل القنبلة
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.arc(bomb.x, bomb.y + 3, bomb.radius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // جسم القنبلة
+                ctx.fillStyle = '#333';
+                ctx.beginPath();
+                ctx.arc(bomb.x, bomb.y, bomb.radius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // فتيل القنبلة
+                ctx.fillStyle = '#D9534F';
+                ctx.beginPath();
+                ctx.arc(bomb.x, bomb.y, bomb.radius * 0.3, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // توهج أحمر
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.arc(bomb.x, bomb.y, bomb.radius * 1.5, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        function drawHearts() {
+            hearts.forEach(heart => {
+                ctx.save();
+                ctx.font = `${heart.radius * 2}px sans-serif`;
+                ctx.fillStyle = '#FF4081';
+                ctx.fillText('❤️', heart.x - heart.radius, heart.y + heart.radius);
+                
+                // توهج للقلوب
+                ctx.fillStyle = 'rgba(255, 64, 129, 0.3)';
+                ctx.beginPath();
+                ctx.arc(heart.x, heart.y, heart.radius * 1.5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.restore();
+            });
+        }
+        
+        function drawStars() {
+            ctx.fillStyle = 'white';
+            stars.forEach(star => {
+                ctx.globalAlpha = star.opacity;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size/2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            });
+        }
+        
+        function drawPlanets() {
+            planets.forEach(planet => {
+                // ظل الكوكب
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.arc(planet.x, planet.y + 5, planet.radius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // جسم الكوكب
+                ctx.fillStyle = planet.color;
+                ctx.beginPath();
+                ctx.arc(planet.x, planet.y, planet.radius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // حلقات للكواكب
+                if (planet.hasRings) {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.ellipse(planet.x, planet.y, planet.radius * 1.5, planet.radius * 0.3, 0, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            });
+        }
+        
+        function drawParticles() {
+            particles.forEach((particle, index) => {
+                ctx.fillStyle = particle.color;
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // تحديث الجسيمات
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                particle.size -= 0.1;
+                particle.alpha -= 0.02;
+                
+                if (particle.size <= 0 || particle.alpha <= 0) {
+                    particles.splice(index, 1);
+                }
+            });
+        }
+
+        // --- وظائف تحديث اللعبة ---
+        function update() {
+            if (gameState !== 'playing') return;
+
+            // تحديث حركة الصاروخ
+            if (keys.ArrowUp) rocket.y -= rocket.speed;
+            if (keys.ArrowLeft) rocket.x -= rocket.speed;
+            if (keys.ArrowRight) rocket.x += rocket.speed;
+
+            // إبقاء الصاروخ داخل حدود الشاشة
+            if (rocket.x < 0) rocket.x = 0;
+            if (rocket.x + rocket.width > canvas.width) rocket.x = canvas.width - rocket.width;
+            if (rocket.y < 0) rocket.y = 0;
+            if (rocket.y + rocket.height > canvas.height) rocket.y = canvas.height - rocket.height;
+
+            // تحديث القنابل
+            bombs.forEach((bomb, index) => {
+                bomb.y += bomb.speed;
+                if (bomb.y > canvas.height) {
+                    bombs.splice(index, 1);
+                }
+            });
+
+            // تحديث القلوب
+            hearts.forEach((heart, index) => {
+                heart.y += heart.speed;
+                if (heart.y > canvas.height) {
+                    hearts.splice(index, 1);
+                }
+            });
+            
+            // تحديث النجوم والكواكب
+            stars.forEach(star => {
+                star.y += 0.2;
+                if (star.y > canvas.height) star.y = 0;
+            });
+            planets.forEach(planet => {
+                planet.y += 0.5;
+                if (planet.y - planet.radius > canvas.height) {
+                    planet.y = -planet.radius;
+                    planet.x = Math.random() * canvas.width;
+                }
+            });
+
+            // تحديث الجسيمات
+            drawParticles();
+
+            // التحقق من الاصطدام
+            checkCollisions();
+            
+            // التحقق من شرط الفوز
+            if (rocket.y <= moon.y + moon.radius && score >= 20) {
+                gameState = 'landing';
+            }
+        }
+
+        function animateLanding() {
+            // تحريك الصاروخ بسلاسة نحو نقطة الهبوط
+            const landingY = moon.y;
+            const landingX = moon.x - rocket.width / 2;
+            rocket.x += (landingX - rocket.x) * 0.05;
+            rocket.y += (landingY - rocket.y) * 0.05;
+
+            // إظهار جسيمات الهبوط
+            if (Math.random() < 0.3) {
+                createParticles(
+                    rocket.x + rocket.width/2, 
+                    rocket.y + rocket.height, 
+                    5, 
+                    ['#FFD700', '#FFA500', '#FF4500']
+                );
+            }
+
+            // التحقق من اكتمال الهبوط
+            if (Math.abs(rocket.y - landingY) < 1) {
+                winGame();
+            }
+        }
+        
+        function checkCollisions() {
+            // الاصطدام بالقنابل
+            bombs.forEach((bomb, index) => {
+                if (
+                    rocket.x < bomb.x + bomb.radius &&
+                    rocket.x + rocket.width > bomb.x - bomb.radius &&
+                    rocket.y < bomb.y + bomb.radius &&
+                    rocket.y + rocket.height > bomb.y - bomb.radius
+                ) {
+                    // إظهار انفجار
+                    createParticles(
+                        bomb.x, bomb.y, 
+                        30, 
+                        ['#FF0000', '#FF4500', '#FFA500']
+                    );
+                    endGame();
+                }
+            });
+
+            // الاصطدام بالقلوب
+            hearts.forEach((heart, index) => {
+                if (
+                    rocket.x < heart.x + heart.radius &&
+                    rocket.x + rocket.width > heart.x - heart.radius &&
+                    rocket.y < heart.y + heart.radius &&
+                    rocket.y + rocket.height > heart.y - heart.radius
+                ) {
+                    hearts.splice(index, 1);
+                    score++;
+                    scoreEl.innerText = score;
+                    
+                    // تحديث شريط التقدم
+                    progressBar.style.width = `${Math.min(100, (score / 20) * 100)}%`;
+                    
+                    // إظهار جسيمات عند جمع القلب
+                    createParticles(
+                        heart.x, heart.y, 
+                        15, 
+                        ['#FF4081', '#FF6D00', '#FFD700']
+                    );
+                    
+                    // تغذية راجعة صوتية
+                    if (score >= 20) {
+                        // إظهار رسالة عند اكتمال النقاط
+                        showMessage("تهانينا! يمكنك الآن الهبوط على القمر");
+                    }
+                }
+            });
+        }
+        
+        function createParticles(x, y, count, colors) {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    size: Math.random() * 5 + 2,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1
+                });
+            }
+        }
+        
+        function showMessage(text) {
+            const message = document.createElement('div');
+            message.textContent = text;
+            message.className = 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white text-xl px-6 py-3 rounded-lg z-30 animate-pulse';
+            message.id = 'tempMessage';
+            gameContainer.appendChild(message);
+            
+            setTimeout(() => {
+                if (document.getElementById('tempMessage')) {
+                    gameContainer.removeChild(message);
+                }
+            }, 3000);
+        }
+
+        // --- وظائف إنشاء العناصر ---
+        function createItems() {
+            // إنشاء قنبلة جديدة
+            if (Math.random() < 0.015) {
+                bombs.push({
+                    x: Math.random() * (canvas.width - 20) + 10,
+                    y: -20,
+                    radius: 12,
+                    speed: 2 + Math.random() * 2
+                });
+            }
+            // إنشاء قلب جديد
+            if (Math.random() < 0.03) { // زيادة ظهور القلوب
+                hearts.push({
+                    x: Math.random() * (canvas.width - 20) + 10,
+                    y: -20,
+                    radius: 15,
+                    speed: 1.5 // إبطاء سرعة القلوب
+                });
+            }
+        }
+        
+        function createScenery() {
+            // إنشاء النجوم
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 3 + 1,
+                    opacity: Math.random()
+                });
+            }
+            // إنشاء الكواكب
+            const planetColors = ['#FFD700', '#4682B4', '#CD5C5C', '#9ACD32'];
+            for (let i = 0; i < 3; i++) {
+                planets.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 30 + 20,
+                    color: planetColors[Math.floor(Math.random() * planetColors.length)],
+                    hasRings: Math.random() > 0.7
+                });
+            }
+        }
+
+        // --- حلقة اللعبة الرئيسية ---
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // الرسم دائمًا
+            drawStars();
+            drawPlanets();
+            drawMoon();
+            drawBombs();
+            drawHearts();
+            drawParticles();
+            
+            if (gameState === 'start') {
+                drawAstronaut();
+                drawRocket();
+            } else if (gameState === 'playing') {
+                createItems();
+                update();
+                drawRocket();
+            } else if (gameState === 'landing') {
+                animateLanding();
+                drawRocket();
+            }
+
+            gameLoopId = requestAnimationFrame(gameLoop);
+        }
+
+        // --- وظائف التحكم بحالة اللعبة ---
+        function init() {
+            canvas.width = gameContainer.clientWidth;
+            canvas.height = gameContainer.clientHeight;
+            score = 0;
+            scoreEl.innerText = score;
+            progressBar.style.width = "0%";
+            bombs = [];
+            hearts = [];
+            stars = [];
+            planets = [];
+            particles = [];
+            
+            rocket = {
+                width: 30,
+                height: 50,
+                x: canvas.width / 2 - 15,
+                y: canvas.height - 70,
+                speed: 4
+            };
+            
+            astronaut = {
+                width: 20,
+                height: 30,
+                x: rocket.x - 40,
+                y: canvas.height - 40,
+                inRocket: false
+            };
+
+            moon = {
+                x: canvas.width / 2,
+                y: 60,
+                radius: 40
+            };
+            
+            createScenery();
+        }
+        
+        function startGame() {
+            init();
+            gameState = 'playing';
+            astronaut.inRocket = true;
+            startScreen.style.display = 'none';
+            gameOverScreen.style.display = 'none';
+            winScreen.style.display = 'none';
+            gameInfo.style.display = 'block';
+            progressContainer.style.display = 'block';
+            touchControls.style.display = 'grid';
+            if (!gameLoopId) {
+                gameLoop();
+            }
+        }
+
+        function endGame() {
+            gameState = 'gameOver';
+            gameOverScreen.style.display = 'flex';
+            gameInfo.style.display = 'none';
+            progressContainer.style.display = 'none';
+            touchControls.style.display = 'none';
+        }
+        
+        function winGame() {
+            gameState = 'win';
+            winScreen.style.display = 'flex';
+            gameInfo.style.display = 'none';
+            progressContainer.style.display = 'none';
+            touchControls.style.display = 'none';
+            finalScoreEl.textContent = score;
+        }
+
+        // --- معالجات الأحداث ---
+        window.addEventListener('keydown', (e) => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = true;
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = false;
+            }
+        });
+
+        startButton.addEventListener('click', startGame);
+        restartButtonLose.addEventListener('click', startGame);
+        restartButtonWin.addEventListener('click', startGame);
+
+        function handleTouch(button, key, isPressed) {
+            button.addEventListener('touchstart', (e) => { e.preventDefault(); keys[key] = isPressed; });
+            button.addEventListener('touchend', (e) => { e.preventDefault(); keys[key] = !isPressed; });
+            button.addEventListener('mousedown', (e) => { e.preventDefault(); keys[key] = isPressed; });
+            button.addEventListener('mouseup', (e) => { e.preventDefault(); keys[key] = !isPressed; });
+        }
+        handleTouch(touchUp, 'ArrowUp', true);
+        handleTouch(touchLeft, 'ArrowLeft', true);
+        handleTouch(touchRight, 'ArrowRight', true);
+
+        window.addEventListener('load', () => {
+            init();
+            gameState = 'start';
+            gameLoop();
+        });
+
+        window.addEventListener('resize', () => {
+            init();
+        });
+
+    </script>
+</body>
+</html>
